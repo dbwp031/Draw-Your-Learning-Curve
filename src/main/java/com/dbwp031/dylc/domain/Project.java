@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Getter
 @NoArgsConstructor
@@ -17,7 +20,10 @@ public class Project extends BaseTimeEntity {
     @JoinColumn(name="member_id")
     private Member member;
 
-    @Column(nullable=false)
+    @OneToMany(mappedBy = "project")
+    private List<Todo> todos = new ArrayList<Todo>();
+
+    @Column(nullable = false)
     private String title;
 
 }

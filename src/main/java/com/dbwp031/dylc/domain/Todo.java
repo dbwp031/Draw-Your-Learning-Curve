@@ -13,11 +13,6 @@ public class Todo extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="todo_id")
     private Long id;
-    @Column(nullable=false)
-    private String content;
-
-    @Column(nullable=false)
-    private boolean done;
 
     @ManyToOne
     @JoinColumn(name="member_id")
@@ -26,6 +21,13 @@ public class Todo extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name="project_id")
     private Project project;
+
+
+    @Column(nullable=false)
+    private String content;
+
+    @Column(nullable=false)
+    private boolean done;
     @Builder
     public Todo(Member member, Project project, String content, boolean done) {
         this.member = member;

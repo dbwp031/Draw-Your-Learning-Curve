@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @Entity
@@ -13,6 +16,12 @@ public class Member extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //db에 위임.
     private Long id;
+
+    @OneToMany(mappedBy = "member")
+    private List<Todo> todos = new ArrayList<Todo>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Project> projects = new ArrayList<Project>();
 
     @Column(nullable = false)
     private String name;
