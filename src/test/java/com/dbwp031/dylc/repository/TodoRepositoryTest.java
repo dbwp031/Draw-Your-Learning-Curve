@@ -39,6 +39,8 @@ class TodoRepositoryTest {
                 .nickname(nickname).build());
     }
 
+
+
     @AfterEach
     public void cleanup() {
         memberRepository.deleteAll();
