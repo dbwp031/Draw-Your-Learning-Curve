@@ -14,11 +14,11 @@ public class Friendship extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="member_id", insertable = false, updatable = false)
+    @JoinColumn(name="member1_member_id")
     private Member member1;
 
     @ManyToOne
-    @JoinColumn(name="member_id", insertable = false, updatable = false)
+    @JoinColumn(name="member2_member_id")
     private Member member2;
 
     @Builder

@@ -15,11 +15,11 @@ public class FriendRequest extends BaseTimeEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="member_id", insertable = false, updatable = false)
+    @JoinColumn(name="requester_member_id")
     private Member requester;
 
     @ManyToOne
-    @JoinColumn(name="member_id", insertable = false, updatable = false)
+    @JoinColumn(name="requested_member_id")
     private Member requestedmember;
 
     @Column(nullable = false)
