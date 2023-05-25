@@ -2,15 +2,15 @@ package com.dbwp031.dylc.domain;
 
 import jakarta.persistence.*;
 import jdk.jfr.Enabled;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Getter
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Member extends BaseTimeEntity{
     @Id
@@ -18,9 +18,11 @@ public class Member extends BaseTimeEntity{
     private Long id;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<Todo> todos = new ArrayList<Todo>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Project> projects = new ArrayList<Project>();
 
     @Column(nullable = false)
@@ -34,12 +36,4 @@ public class Member extends BaseTimeEntity{
 
     @Column(length=50, nullable = false)
     private String nickname;
-
-    @Builder
-    public Member(String name, String email, String picture, String nickname) {
-        this.name = name;
-        this.email = email;
-        this.picture = picture;
-        this.nickname = nickname;
-    }
 }

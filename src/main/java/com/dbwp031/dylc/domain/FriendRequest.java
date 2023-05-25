@@ -1,12 +1,11 @@
 package com.dbwp031.dylc.domain;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
+@Builder
 @Getter
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class FriendRequest extends BaseTimeEntity {
 
@@ -14,20 +13,15 @@ public class FriendRequest extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="requester_member_id")
     private Member requester;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="requested_member_id")
     private Member requestedmember;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private String requestStatus;
-    @Builder
-    public FriendRequest(Member requester, Member requestedmember, String requestStatus) {
-        this.requester = requester;
-        this.requestedmember = requestedmember;
-        this.requestStatus = requestStatus;
-    }
 }

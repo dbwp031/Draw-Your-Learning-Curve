@@ -1,12 +1,12 @@
 package com.dbwp031.dylc.domain;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@Builder
 @Getter
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Todo extends BaseTimeEntity {
     @Id
@@ -14,11 +14,11 @@ public class Todo extends BaseTimeEntity {
     @Column(name="todo_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="member_id")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="project_id")
     private Project project;
 
@@ -28,11 +28,4 @@ public class Todo extends BaseTimeEntity {
 
     @Column(nullable=false)
     private boolean done;
-    @Builder
-    public Todo(Member member, Project project, String content, boolean done) {
-        this.member = member;
-        this.project = project;
-        this.content = content;
-        this.done = done;
-    }
 }
