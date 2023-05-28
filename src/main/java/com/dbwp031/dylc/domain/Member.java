@@ -34,6 +34,20 @@ public class Member extends BaseTimeEntity{
     @Column(nullable = false)
     private String picture;
 
-    @Column(length=50, nullable = false)
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Column(length=50)
     private String nickname;
+
+    public Member update(String name, String picture) {
+        this.name = name;
+        this.picture = picture;
+
+        return this;
+    }
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
 }
