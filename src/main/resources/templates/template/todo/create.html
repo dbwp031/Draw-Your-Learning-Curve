@@ -9,6 +9,14 @@
             <label for="exampleInputEmail1" class="form-label">What's your new todo?</label>
             <input type="text" class="form-control" id="exampleInputEmail1" name="todoContext" aria-describedby="emailHelp">
         </div>
+        <div class="container-fluid mb-3">
+            <h4>Related Project</h4>
+            <select class="form-select" aria-label="Default select example" name="selectedProjectId">
+                <option th:each="cp: ${containedProjects}" th:value="${cp.id}" th:text="${cp.title}"
+                ></option>
+                <!--            <option value="-1">No Project</option>-->
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </body>

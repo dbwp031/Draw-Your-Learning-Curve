@@ -6,6 +6,7 @@ import com.dbwp031.dylc.domain.Project;
 import com.dbwp031.dylc.domain.Todo;
 import com.dbwp031.dylc.domain.TodoPostDto;
 import com.dbwp031.dylc.repository.MemberRepository;
+import com.dbwp031.dylc.repository.ProjectRepository;
 import com.dbwp031.dylc.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class TodoController {
 
     private final MemberRepository memberRepository;
     private final TodoRepository todoRepository;
+    private final ProjectRepository projectRepository;
 
     @GetMapping("")
     public String todoList(Model model, Principal principal) {
@@ -55,19 +58,26 @@ public class TodoController {
 
 
     @GetMapping("/create")
-    public String visitTodoCreate() {
+    public String visitTodoCreate(Model model, Principal principal) {
+        String memberName = principal.getName();
+        Optional<Member> member = memberRepository.findMemberByLoginId(memberName);
+        List<Project> containedProjects = member.get().getProjects();
+        model.addAttribute("containedProjects", containedProjects);
+
         return "template/todo/create";
     }
 
     @PostMapping("/create")
-    public String createTodo(@RequestParam String todoContext, Principal principal) {
+    public String createTodo(@RequestParam String todoContext, @RequestParam Long selectedProjectId, Principal principal) {
         String memberName = principal.getName();
         Optional<Member> member = memberRepository.findMemberByLoginId(memberName);
+        Project project = projectRepository.findById(selectedProjectId).get();
         if (member.isPresent()) {
             Todo todo = Todo.builder()
                     .content(todoContext)
                     .member(member.get())
                     .done(false)
+                    .project(project)
                     .build();
             todoRepository.save(todo);
         } else {
@@ -83,7 +93,12 @@ public class TodoController {
 
         if (todo.isPresent()) {
             model.addAttribute("content", todo.get().getContent());
-            model.addAttribute("project", todo.get().getProject());
+            Project project = todo.get().getProject();
+            if (project != null) {
+                model.addAttribute("project", project.getTitle());
+            } else {
+                model.addAttribute("project", null);
+            }
         }
         return "template/todo/detail";
     }
@@ -96,18 +111,21 @@ public class TodoController {
         List<Project> containedProjects = member.get().getProjects();
         if (todo.isPresent()) {
             model.addAttribute("content", todo.get().getContent());
+            Project project = todo.get().getProject();
             model.addAttribute("project", todo.get().getProject());
             model.addAttribute("containedProjects", containedProjects);
         }
         return "template/todo/update";
     }
     @PostMapping("/{id}/update")
-    public String update(@PathVariable Long id, @RequestParam String content ) {
+    public String update(@PathVariable Long id, @RequestParam String content, @RequestParam Long selectedProjectId  ) {
         Optional<Todo> todoOptional = todoRepository.findById(id);
+        Optional<Project> projectOptional = projectRepository.findById(selectedProjectId);
+        Project project = projectOptional.get();
         if (todoOptional.isPresent()) {
             Todo todo = todoOptional.get();
             todoRepository.updateContent(id, content);
-//        todoRepository.updateTodoByProject();
+        todoRepository.updateContentAndProject(id, content, project);
         }
         return "redirect:/todo/{id}/detail";
     }

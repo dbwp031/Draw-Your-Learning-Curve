@@ -10,7 +10,7 @@
         <div class="todoCheckbox">
             <input class="todoCheckbox" type="checkbox" value="" th:id="'todoCheckbox-'+${todo.id}" th:data-id="${todo.id}" data-status="false" th:checked="${todo.done}">
             <label class="todoCheckbox" th:for="'todoCheckbox-'+${todo.id}">
-                <a th:href="@{todo/{id}/detail(id=${todo.id})}" th:text="${todo.context}"></a>
+                <a class="btn btn-outline-primary" th:href="@{todo/{id}/detail(id=${todo.id})}" th:text="${todo.context}"></a>
             </label>
         </div>
     </th:block>
