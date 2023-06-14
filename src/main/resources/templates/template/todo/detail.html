@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:include="/fragments/header :: header"></th:block>
+<body>
+<th:block th:include="/fragments/nav :: nav"></th:block>
+<div class="container-fluid mb-3">
+    <label for="todoContent" class="h4">Todo Content</label>
+    <input type="text" readonly class="form-control-plaintext" id="todoContent" th:value="${content}">
+</div>
+<div class="container-fluid mb-3">
+    <label for="relatedProject" class="h4">Related Project </label>
+    <input type="text" readonly class="form-control-plaintext" id="relatedProject" th:value="${project}">
+</div>
+<a class="btn btn-primary" th:href="@{/todo/{id}/update(id=${id})}" role="button">update todo</a>
+<a class="btn btn-primary" href="/todo" role="button">back</a>
+</body>
+</html>

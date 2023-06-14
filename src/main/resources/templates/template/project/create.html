@@ -1,0 +1,24 @@
+<!doptype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:include="/fragments/header :: header"></div>
+<div th:include="/fragments/nav :: nav"></div>
+<body>
+<form action="/project/create" method="post">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Project Name</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="projectName" placeholder="What's your new project?">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Project Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+</body>
+</html>
+
+
+

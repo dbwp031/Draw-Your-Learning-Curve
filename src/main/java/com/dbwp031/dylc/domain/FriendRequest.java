@@ -23,5 +23,5 @@ public class FriendRequest extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String requestStatus;
+    private FriendReqeustStatus requestStatus;
 }

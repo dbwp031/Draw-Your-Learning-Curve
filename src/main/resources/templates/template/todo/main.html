@@ -1,0 +1,21 @@
+<!doptype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:include="/fragments/header :: header"></th:block>
+<body>
+<th:block th:include="/fragments/nav :: nav"></th:block>
+    <a class="btn btn-primary" href="/todo/create" role="button">Create New Todo</a>
+
+    <th:block th:each="todo : ${todos}">
+        <div class="todoCheckbox">
+            <input class="todoCheckbox" type="checkbox" value="" th:id="'todoCheckbox-'+${todo.id}" th:data-id="${todo.id}" data-status="false" th:checked="${todo.done}">
+            <label class="todoCheckbox" th:for="'todoCheckbox-'+${todo.id}">
+                <a th:href="@{todo/{id}/detail(id=${todo.id})}" th:text="${todo.context}"></a>
+            </label>
+        </div>
+    </th:block>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/js/app.js"></script>
+</html>

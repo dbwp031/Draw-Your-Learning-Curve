@@ -26,14 +26,19 @@ public class Member extends BaseTimeEntity{
     private List<Project> projects = new ArrayList<Project>();
 
     @Column(nullable = false)
+    private String loginId;
+
+//    @Column(nullable = false)
     private String name;
 
-    @Column(nullable=false)
+//    @Column(nullable=false)
     private String email;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String picture;
 
-    @Column(length=50, nullable = false)
+//    @Column(length=50, nullable = false)
     private String nickname;
+
+    private String password;
 }
