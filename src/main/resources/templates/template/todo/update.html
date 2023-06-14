@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:include="/fragments/header :: header"></th:block>
+<body>
+<th:block th:include="/fragments/nav :: nav"></th:block>
+
+<form th:action="@{/todo/{id}/update(id=${id})}" method="post">
+    <div class="container-fluid mb-3">
+        <label for="todoContent" class="h4">Todo Content</label>
+        <input type="text" class="form-control" id="todoContent" th:value="${content}" name="content">
+    </div>
+    <select class="form-select" aria-label="Default select example">
+        <option th:each="cp: ${containedProjects}" th:value="${cp.title}" th:text="${cp.title}"
+                ></option>
+<!--        <option th:each="cp: ${ccontainedProjects}" th:value="${cp.title}" th:text="${cp.title}"-->
+<!--                th:selected="${cp.id==project.id}"></option>-->
+    </select>
+    <button type="submit" class="btn btn-primary">update</button>
+    <a class="btn btn-primary" th:href="@{/project/{id}/detail(id=${id})}" role="button">back</a>
+</form>
+</body>
+</html>

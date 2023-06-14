@@ -1,0 +1,15 @@
+<!doptype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:include="/fragments/header :: header"></div>
+<div th:include="/fragments/nav :: nav"></div>
+<body>
+    <form action="/todo/create" method="post">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">What's your new todo?</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="todoContext" aria-describedby="emailHelp">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</body>
+</html>

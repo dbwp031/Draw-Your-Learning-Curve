@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:include="/fragments/header :: header"></th:block>
+<body>
+<th:block th:include="/fragments/nav :: nav"></th:block>
+
+<form th:action="@{/project/{id}/update(id=${id})}" method="post">
+    <div class="container-fluid mb-3">
+        <label for="projectTitle" class="h4">Project Title</label>
+        <input type="text" class="form-control" id="projectTitle" th:value="${title}" name="title">
+    </div>
+    <div class="container-fluid mb-3">
+        <label for="projectCreatedDate" class="h4">Created Date</label>
+        <input type="text" readonly class="form-control" id="projectCreatedDate" th:value="${createdDate}" name="createdDate">
+    </div>
+    <div class="container-fluid mb-3">
+        <label for="projectDescription" class="h4">Description</label>
+        <input type="text" class="form-control" id="projectDescription" th:value="${description}" name="description">
+    </div>
+    <button type="submit" class="btn btn-primary">update</button>
+    <a class="btn btn-primary" th:href="@{/project/{id}/detail(id=${id})}" role="button">back</a>
+</form>
+</body>
+</html>
