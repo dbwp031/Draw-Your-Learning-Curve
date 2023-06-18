@@ -6,6 +6,7 @@ import com.dbwp031.dylc.domain.Todo;
 import com.dbwp031.dylc.domain.TodoPostDto;
 import com.dbwp031.dylc.repository.MemberRepository;
 import com.dbwp031.dylc.repository.ProjectRepository;
+import com.dbwp031.dylc.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
-
+    private final TodoRepository todoRepository;
     private final ProjectRepository projectRepository;
     private final MemberRepository memberRepository;
 
@@ -69,11 +70,13 @@ public class ProjectController {
         Optional<Project> project = projectRepository.findProjectById(id);
         System.out.println(project.toString());
         if (project.isPresent()) {
+            List<Todo> todos = todoRepository.findAllByProject(project.get());
             System.out.println(project.get().getTitle());
             model.addAttribute("title", project.get().getTitle());
             model.addAttribute("description", project.get().getDescription());
             model.addAttribute("createdDate", project.get().getCreatedDate());
             model.addAttribute("id", project.get().getId());
+            model.addAttribute("todos", todos);
         }
         return "template/project/detail";
     }

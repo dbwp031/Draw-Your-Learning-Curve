@@ -15,7 +15,18 @@
     <label for="projectDescription" class="h4">Description</label>
     <input type="text" readonly class="form-control-plaintext" id="projectDescription" th:value="${description}">
   </div>
+<th:block th:each="todo : ${todos}">
+  <div class="todoCheckbox">
+    <input class="todoCheckbox" type="checkbox" value="" th:id="'todoCheckbox-'+${todo.id}" th:data-id="${todo.id}" data-status="false" th:checked="${todo.done}">
+    <label class="todoCheckbox" th:for="'todoCheckbox-'+${todo.id}">
+      <a class="btn btn-outline-primary" th:href="@{/todo/{id}/detail(id=${todo.id})}" th:text="${todo.content}"></a>
+    </label>
+  </div>
+</th:block>
+
   <a class="btn btn-primary" th:href="@{/project/{id}/update(id=${id})}" role="button">update project</a>
   <a class="btn btn-primary" href="/project" role="button">back</a>
+
+
 </body>
 </html>

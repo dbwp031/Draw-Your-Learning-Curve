@@ -6,6 +6,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@EntityListeners(FriendRequestListener.class)
 @Entity
 public class FriendRequest extends BaseTimeEntity {
 
@@ -19,9 +20,10 @@ public class FriendRequest extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="requested_member_id")
-    private Member requestedmember;
+    private Member requestedMember;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private FriendReqeustStatus requestStatus;
+    private FriendRequestStatus requestStatus;
+
 }

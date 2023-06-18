@@ -1,0 +1,47 @@
+<!doptype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:include="/fragments/header :: header"></th:block>
+<body>
+<th:block th:include="/fragments/nav :: nav"></th:block>
+
+<form class="row g-3" action="/friend/request/create" method="post">
+    <div class="col-auto">
+        <label for="staticEmail2" class="">검색</label>
+        <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Enter: ">
+    </div>
+    <div class="col-auto">
+        <label for="searchMethod" class="">Search by</label>
+        <select class="form-select" aria-label="Default select example" id="searchMethod" name="searchBy">
+            <option value="loginId">login id</option>
+            <option value="name">name</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <label for="enterValue" class="">Find your new Friend</label>
+        <input type="text" class="form-control" id="enterValue" name="enterValue" placeholder="Login-Id or Name">
+    </div>
+    <div class="col-auto">
+        <label class=""></label>
+        <button type="submit" class="btn btn-primary mb-3">Search</button>
+    </div>
+</form>
+<th:block th:each="member : ${searchedMember}">
+    <form th:action="@{/friend/request/member}" method="post">
+        <div class="col-auto">
+            <input type="text" readonly class="form-control-plaintext" th:value="${member.name}" name="requestedMemberName">
+        </div>
+        <div class="col-auto">
+            <input type="text" readonly class="form-control-plaintext" th:value="${member.loginId}" name="requestedMemberLoginId">
+        </div>
+        <div class="col-auto">
+            <button type="submit">request</button>
+        </div>
+    </form>
+
+</th:block>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="/js/app.js"></script>
+</html>

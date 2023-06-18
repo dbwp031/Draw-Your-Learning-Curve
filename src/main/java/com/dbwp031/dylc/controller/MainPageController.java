@@ -15,8 +15,7 @@ import java.time.format.DateTimeFormatter;
 public class MainPageController {
 
     @GetMapping("/")
-    public String mainPage(Model model, HttpServletRequest request) {
-        Principal principal = request.getUserPrincipal();
+    public String mainPage(Model model, Principal principal) {
         String localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         model.addAttribute("localDateTimeNow", localDateTime);
 //        System.out.println("Principal: " + principal.toString());
